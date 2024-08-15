@@ -1,0 +1,162 @@
+/* This code is handling World Population dataset*/
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+import seaborn as sns
+from datetime import datetime
+from matplotlib import colors
+
+d=pd.read_csv(r"C:\Users\Soundarya\OneDrive\Desktop\EDA\dataset11.csv",index_col=0)
+
+# print(d)
+#print("--------------------------------------------------------------")
+
+#print the info of data frame
+# print(d.info())
+#print(d.dtypes)
+
+#now  remove the fault or noisy data
+c=pd.read_csv(r"C:\Users\Soundarya\OneDrive\Desktop\EDA\dataset11.csv",index_col=0,na_values=['??','????'])
+
+
+#check the type
+# print(c.dtypes)
+# print("--------------------------------------------------------------")
+
+#check the null counts
+# print(c.isnull().sum())
+
+
+#fill the null count according to the datatype 
+  #if int type then use mean()
+    # if object type then use mode()
+# c['Rank'].fillna(c['Rank'].mean(),inplace=True)
+# c['1980'].fillna(c['1980'].mean(),inplace=True)
+# c['2000'].fillna(c['2000'].mean(),inplace=True)
+# c['2010'].fillna(c['2010'].mean(),inplace=True)
+# c['2021'].fillna(c['2021'].mean(),inplace=True)
+# c['2022'].fillna(c['2022'].mean(),inplace=True)
+# c['2030'].fillna(c['2030'].mean(),inplace=True)
+# c['2050'].fillna(c['2050'].mean(),inplace=True)
+# c['area'].fillna(c['area'].mean(),inplace=True)
+# c['landAreaKm'].fillna(c['landAreaKm'].mean(),inplace=True)
+# c['growthRate'].fillna(c['growthRate'].mean(),inplace=True)
+# c['landAreaKm'].fillna(c['landAreaKm'].mean(),inplace=True)
+# c['worldPercentage'].fillna(c['worldPercentage'].mean(),inplace=True)
+# c['density'].fillna(c['density'].mean(),inplace=True)
+#print("--------------------------------------------------------------")
+
+#check the null value count
+# print(c.isnull().sum())
+
+#print("--------------------------------------------------------------")
+# print(c.info())
+#print("--------------------------------------------------------------")
+
+#convert the data types according to the respective data
+# c['Rank']=c['Rank'].astype('int64')
+# c['1980']=c['1980'].astype('int64')
+# c['2000']=c['2000'].astype('int64')
+# c['2010']=c['2010'].astype('int64')
+# c['2021']=c['2021'].astype('int64')
+# c['2022']=c['2022'].astype('int64')
+# c['2030']=c['2030'].astype('int64')
+# c['2050']=c['2050'].astype('int64')
+# c['area']=c['area'].astype('int64')
+# c['landAreaKm']=c['landAreaKm'].astype('int64')
+
+
+# finally print the types and info
+# print(c.dtypes)
+# print(c.info())
+
+
+# 1
+# Replace "India" with the country you're interested in
+# country_data = c[c["country"] == "India"]
+
+# Select the population data for the specified years
+# population_years = country_data[["1980", "2000", "2010", "2021"]]
+
+# Print the selected population data
+# print(population_years)
+
+# 2 Assuming top_10_countries is already defined as per your code
+# Create the histogram
+# sorted_data = c.sort_values(by=["2030"], ascending=False)
+# top_10_countries = sorted_data.head(10)
+# plt.figure(figsize=(10, 6))
+# plt.barh(top_10_countries["country"], top_10_countries["2030"], color='skyblue')
+# plt.xlabel('Projected Population in 2030 (millions)')
+# plt.ylabel('Country')
+# plt.title('Top 10 Countries by Projected Population in 2030')
+# plt.gca().invert_yaxis()  # Invert y-axis to have the highest population at the top
+# plt.show()
+
+
+
+# 3
+# pop_density_data = c[["country", "2022", "landAreaKm"]]
+# Calculate the population density for each country in 2022
+# pop_density_data["density"] = pop_density_data["2022"] / pop_density_data["landAreaKm"]
+# # Find the country with the highest population density in 2022
+# highest_density_country = pop_density_data.loc[pop_density_data["density"].idxmax()]
+# print("The country with the highest population density in 2022 is", highest_density_country["country"], "with a density of", highest_density_country["density"], "people per square kilometer.")
+
+#  4
+
+# world_data = c[c["country"] == "India"]
+# print(world_data)
+# population_2021 = world_data["2021"].values[0]
+# print(population_2021)
+# population_2030 = world_data["2030"].values[0]
+# Calculate the percentage change
+# percentage_change = ((population_2030 - population_2021) / population_2021) * 100
+# print("Percentage change in world population from 2021 to 2030:", percentage_change)
+
+# 5
+# growth_2022 = c[["country", "growthRate"]][c["2022"].notnull()]
+#  Filter the data for negative growth rates
+# negative_growth = growth_2022[growth_2022["growthRate"] < 0]
+#  Print the list of countries with negative growth rates in 2022
+# print(negative_growth["country"].tolist())
+
+
+# 6 scatter plot
+# land_area = c["landAreaKm"]
+# population_density = c["density"]
+# Create a scatter plot to visualize the relationship
+# plt.scatter(land_area, population_density)
+# plt.title("Land Area vs Population Density in 2021")
+# plt.xlabel("Land Area (sq. km)")
+# plt.ylabel("Population Density (people per sq. km)")
+# plt.show()
+
+# 7  heatmap
+# df = c[["country", "Rank","landAreaKm", "density"]]
+# df = df.dropna()
+# Set the index to 'country' for better visualization in the heatmap
+# df = df.set_index('country')
+
+# Create a heatmap using seaborn
+# plt.figure(figsize=(12, 8))
+# sns.heatmap(df, annot=True, cmap="YlGnBu")
+
+# plt.title('Heatmap of Population Density and Land Area by Country in 2021')
+# plt.xlabel('Metrics')
+# plt.ylabel('Country')
+# plt.xticks(rotation=45)
+# plt.show()
+
+# 8
+
+# country_data = c[c["country"] == "India"]
+# Select the rank data for the years 1980 and 2021
+# rank_1980 = country_data["1980"].iloc[0]
+# rank_2021 = country_data["2021"].iloc[0]
+# Calculate the change in rank
+# rank_change = rank_1980 - rank_2021
+# print("Rank in 1980:", rank_1980)
+# print("Rank in 2021:", rank_2021)
+# print("Rank change from 1980 to 2021:", rank_change)
