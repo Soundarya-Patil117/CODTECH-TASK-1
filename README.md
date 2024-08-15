@@ -30,3 +30,6 @@ Future Projections: It includes projections for future populations up to 2050, a
 Geographic and Demographic Analysis: By comparing the area and population density, one can assess how densely populated a country is relative to its size.
 
 This dataset is useful for researchers, policymakers, and educators to understand demographic trends and make informed decisions based on population growth and density patterns across the globe.
+
+
+
